@@ -17,9 +17,10 @@ package com.javarush.test.level13.lesson11.bonus01;
 10
 */
 
-import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -29,23 +30,23 @@ public class Solution
     {
         // напишите тут ваш код
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String file = reader.readLine();
-        BufferedReader reader1 = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
-        String data = reader1.readLine();
-        while(!data.equals("")){
-            arrayList.add(Integer.valueOf(data));
-            data = reader1.readLine();
-        }
-        ArrayList<Integer> even = new ArrayList<Integer>();
-        for (int i = 0; i < arrayList.size(); i ++){
-            if (arrayList.get(i) % 2 == 0){
-                even.add(arrayList.get(i));
+        String fileName = reader.readLine();
+        BufferedReader readFile = new BufferedReader(new FileReader(fileName));
+
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        while (readFile.ready()){
+            int number = Integer.parseInt(readFile.readLine());
+            if (number % 2 == 0){
+                list.add(number);
             }
         }
-        Collections.sort(even);
-        for (Integer i : even){
-            System.out.println(i);
+        readFile.close();
+        Collections.sort(list);
+
+        for (Integer i : list){
+            System.out.println(list.get(i));
         }
     }
+
 }
